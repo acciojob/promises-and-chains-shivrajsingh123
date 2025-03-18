@@ -1,13 +1,49 @@
 <!DOCTYPE html>
-
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-
-  <body>
-    <!-- write the body here -->
-
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Eligibility Form</title>
+</head>
+<body>
+    <form id="voteForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age">
+        <br>
+        <button id="btn" type="submit">Submit</button>
+    </form>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("btn").addEventListener("click", function (event) {
+                event.preventDefault();
+        
+                const nameInput = document.getElementById("name").value.trim();
+                const ageInput = document.getElementById("age").value.trim();
+                
+                if (!nameInput || !ageInput) {
+                    alert("Please enter valid details.");
+                    return;
+                }
+        
+                const age = parseInt(ageInput, 10);
+                
+                new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if (age > 18) {
+                            resolve(`Welcome, ${nameInput}. You can vote.`);
+                        } else {
+                            reject(`Oh sorry ${nameInput}. You aren't old enough.`);
+                        }
+                    }, 4000);
+                })
+                .then(message => alert(message))
+                .catch(error => alert(error));
+            });
+        });
+    </script>
+</body>
 </html>
